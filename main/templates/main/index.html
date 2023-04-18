@@ -31,7 +31,40 @@ END script blocks
 Start Content
 ================================= -->
 {% block content %}
-<section>
+<div class="relative z-10 flex items-center justify-center h-auto min-h-screen">
+  <div class="relative max-w-lg md:max-w-xl lg:max-w-4xl">
+    <!-- gradient bg -->
+    <div
+      class="absolute inset-0 z-10 transform rounded-lg shadow-lg bg-gradient-to-r from-primary to-secondary -skew-y-2 sm:skew-y-0 sm:-rotate-2">
+    </div>
+    <!-- card -->
+    <div
+      class="relative z-20 flex items-center justify-between p-4 bg-white rounded-lg shadow-lg md:p-6 lg:p-12 md:max-w-xl lg:max-w-4xl ">
+      <div class="flex flex-col justify-between py-6 space-y-6 md:pr-10">
+        <div>
+          <h2 class="text-md md:text-lg">Hello, my name is</h2>
+          <h1 class="text-3xl font-bold text-gray-800 md:text-4xl">Rishabh Singh</h1>
+          <p class="mt-1 text-gray-400">Python Backend Developer</p>
+        </div>
+        <p>{{me.userprofile.bio}}</p>
+        <div class="flex flex-row">
+          <div class="basis-1/4">
+            <a download href="{{me.userprofile.cv.url}}"
+              class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Download
+              Resume</a>
+          </div>
+          <div class="basis-1/4">
+            <a href="{% url 'main:contact' %}"
+              class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Contact</a>
+          </div>
+        </div>
+      </div>
+      <img src="https://i.imgur.com/l9138GP.png" alt="Memoji"
+        class="w-40 h-40 rounded-full md:w-60 md:h-60 md:flex-shrink-0">
+    </div>
+  </div>
+</div>
+<!-- <section>
   <div class="bannerSection">
     <div class="container">
       <div class="row g-4 g-md-3  align-items-center">
@@ -59,12 +92,44 @@ Start Content
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <section>
-  <div class="sectionSpace pt-0">
-    <div class="container">
-      <div class="row">
+  <div class="container mx-auto">
+    <div class="flex flex-col">
+      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+          <div class="overflow-hidden">
+            <table class="min-w-full text-left text-sm font-light">
+              <thead class="border-b font-medium dark:border-neutral-500">
+                <tr>
+                  <th scope="col" class="px-6 py-4">#</th>
+                  <th scope="col" class="px-6 py-4">Skill</th>
+                  <th scope="col" class="px-6 py-4">Proficiency</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for sk in me.userprofile.skills.all %}
+                {% if sk.is_key_skill %}
+                <tr
+                  class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                  <td class="whitespace-nowrap px-6 py-4 font-medium">{{ forloop.counter }}</td>
+                  <td class="whitespace-nowrap px-6 py-4">{{sk.name}}</td>
+                  <td class="whitespace-nowrap px-6 py-4">
+                    <div class="h-1 w-full bg-neutral-200 dark:bg-neutral-600">
+                      <div class="h-1 bg-green-500" style="width: {{sk.score}}%"></div>
+                    </div>
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="grid grid-cols-3 gap-4">
         <div class="col-md-auto">
           <div class="keySkillCol">
             <h4 class="smTitle pb-3">Key Skills</h4>
@@ -73,10 +138,10 @@ Start Content
             <div class="keySkillCard">
               {% if sk.image %}
               <div class="ksIconCol">
-                <img src="{{sk.image.url}}" alt="...">
+                <img src="{{sk.image.url}}" alt="..." width="auto" height="40">
               </div>
               {% endif %}
-              <span class="ksText">{{sk.name}}</span>
+              <span class="ksText">{{sk.name}}</span> 
             </div>
             {% endif %}
             {% endfor %}
@@ -93,7 +158,8 @@ Start Content
                 <div class="row g-2 align-items-center">
                   <div class="col">
                     <div class="progress progressStyle">
-                      <div class="progress-bar" role="progressbar" style="width: {{sk.score}}%" aria-valuenow="{{sk.score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar" role="progressbar" style="width: {{sk.score}}%"
+                        aria-valuenow="{{sk.score}}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                   <div class="col-auto">
@@ -103,12 +169,11 @@ Start Content
               </div>
               {% endif %}
               {% endfor %}
-              
+
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div> -->
   </div>
 </section>
 
@@ -152,7 +217,58 @@ Start Content
 </section> -->
 
 <section>
-  <div class="sectionSpace lightBg">
+  <div class="gallery border-2 rounded mx-auto m-5 bg-white" style="width:750px;">
+    <div class="top flex p-2 border-b select-none">
+      <div class="heading text-gray-800 w-full pl-3 font-semibold my-auto"></div>
+      <div class="buttons ml-auto flex text-gray-600 mr-1">
+        <svg action="prev" class="w-7 border-2 rounded-l-lg p-1 cursor-pointer border-r-0"
+          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path action="prev" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <svg action="next" class="w-7 border-2 rounded-r-lg p-1 cursor-pointer" xmlns="http://www.w3.org/2000/svg"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path action="next" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </div>
+    </div>
+    <div class="content-area w-full h-96 overflow-hidden">
+      <div class="platform shadow-xl h-full flex">
+        <!-- frame start -->
+        {% for p in portfolio %}
+        {% if p.is_active %}
+        <div class="each-frame border-box flex-none h-full" title="{{p.name}}">
+          <!-- title shows in top -->
+          <!-- this is full editable area -->
+          <div class="main flex w-full p-8">
+            <div class="sub w-4/6 my-auto">
+              <img class="w-full p-8" src="{{p.image.url}}" alt="">
+            </div>
+            <div class="sub w-full my-auto">
+              <div class="head text-3xl font-bold mb-4">{{p.name}}</div>
+              <div class="long-text text-lg">{{p.description}}</div>
+              <!-- this buttons are usable everywhere inside gallery element -->
+
+              <button type="button" data-te-ripple-init data-te-ripple-color="light"
+                class="mb-2 inline-block rounded px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg"
+                style="background-color: #333">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- frame end -->
+        {% endif %}
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+  <!-- <div class="sectionSpace lightBg">
     <div class="container">
       <div class="portfolioCol">
         <div class="row pb-3">
@@ -188,9 +304,9 @@ Start Content
         </div>
         {% endif %}
         {% endfor %}
-        
+
       </div>
-      <!-- <div class="testimonialCol">
+      <div class="testimonialCol">
         <h4 class="smText regular d-block">Testimonials</h4>
         <div class="testimonialSlider">
           <div class="swiper testimonialSwiper">
@@ -224,13 +340,53 @@ Start Content
 
 
         </div>
-      </div> -->
+      </div>
     </div>
-  </div>
+  </div> -->
 </section>
 
 <section>
-  <div class="sectionSpaceSm">
+  
+<div id="controls-carousel" class="relative w-full" data-carousel="static">
+  <!-- Carousel wrapper -->
+  <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+       <!-- Item 1 -->
+      <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="/docs/images/carousel/carousel-1.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+      <!-- Item 2 -->
+      <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
+          <img src="/docs/images/carousel/carousel-2.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+      <!-- Item 3 -->
+      <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="/docs/images/carousel/carousel-3.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+      <!-- Item 4 -->
+      <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="/docs/images/carousel/carousel-4.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+      <!-- Item 5 -->
+      <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="/docs/images/carousel/carousel-5.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+  </div>
+  <!-- Slider controls -->
+  <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+      <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <svg aria-hidden="true" class="w-6 h-6 text-white dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          <span class="sr-only">Previous</span>
+      </span>
+  </button>
+  <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+      <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <svg aria-hidden="true" class="w-6 h-6 text-white dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          <span class="sr-only">Next</span>
+      </span>
+  </button>
+</div>
+
+  <!-- <div class="sectionSpaceSm">
     <div class="container">
       <div class="row pb-3">
         <div class="col">
@@ -241,8 +397,8 @@ Start Content
         </div>
       </div>
       <div class="row g-3">
-      {% for b in blogs %}
-      {% if b.is_active %}
+        {% for b in blogs %}
+        {% if b.is_active %}
         <div class="col-lg-6">
           <div class="cardStyle1">
             <h4 class="mdTitle cs1Title"><a href="{% url 'main:blog' slug=b.slug %}">{{b.name}}</a></h4>
@@ -258,8 +414,59 @@ Start Content
 
       </div>
     </div>
-  </div>
+  </div> -->
 </section>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+<style>
+  .platform {
+    position: relative;
+    transition: right 0.3s;
+  }
+
+  /* .body {
+    background-color: white !important;
+  } */
+
+</style>
+<script>
+  function gallery() {
+    this.index = 0;
+    this.load = function () {
+      this.rootEl = document.querySelector(".gallery");
+      this.platform = this.rootEl.querySelector(".platform");
+      this.frames = this.platform.querySelectorAll(".each-frame");
+      this.contentArea = this.rootEl.querySelector(".content-area");
+      this.width = parseInt(this.rootEl.style.width);
+      this.limit = { start: 0, end: this.frames.length - 1 };
+      this.frames.forEach(each => { each.style.width = this.width + "px"; });
+      this.goto(this.index);
+    }
+    this.set_title = function () { this.rootEl.querySelector(".heading").innerText = this.frames[this.index].getAttribute("title"); }
+    this.next = function () { this.platform.style.right = this.width * ++this.index + "px"; this.set_title(); }
+    this.prev = function () { this.platform.style.right = this.width * --this.index + "px"; this.set_title(); }
+    this.goto = function (index) { this.platform.style.right = this.width * index + "px"; this.index = index; this.set_title(); }
+    this.load();
+  }
+  var G = new gallery();
+  G.rootEl.addEventListener("click", function (t) {
+    var val = t.target.getAttribute("action");
+    if (val == "next" && G.index != G.limit.end) { G.next(); }
+    if (val == "prev" && G.index != G.limit.start) { G.prev(); }
+    if (val == "goto") {
+      let rv = t.target.getAttribute("goto");
+      rv = rv == "end" ? G.limit.end : rv;
+      G.goto(parseInt(rv));
+    }
+  });
+  document.addEventListener("keyup", function (t) {
+    var val = t.keyCode;
+    if (val == 39 && G.index != G.limit.end) { G.next(); }
+    if (val == 37 && G.index != G.limit.start) { G.prev(); }
+  });
+
+    // run G.load() if new data loaded with ajax
+
+</script>
 {% endblock %}
 <!-- ================================
 End Content
